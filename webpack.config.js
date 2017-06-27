@@ -1,33 +1,38 @@
-var path = require('path');
-var webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
   context: path.resolve(__dirname),
-  entry: './client/client.js',
+  entry: './client/client.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/dist/'
+    publicPath: '/dist/',
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
+        test: /\.jsx?$/,
         exclude: '/node_modules/',
-        query: {
-          presets: ['react', 'es2015']
-        }
-      }
-    ]
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react', 'env'],
+          },
+        },
+      },
+    ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin() // Enable HMR
+    new webpack.HotModuleReplacementPlugin(), // Enable HMR
   ],
   devServer: {
     hot: true, // Tell the dev-server we're using HMR
     contentBase: path.resolve(__dirname, 'client'),
-    publicPath: '/dist/'
-  }
-}
+    publicPath: '/dist/',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'], // Tell webpack .jsx is valid file and able to be imported.
+  },
+};
