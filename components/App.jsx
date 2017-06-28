@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import TodoInput from './TodoInput';
+import TodoList from './TodoList';
 
 class App extends Component {
 
   render() {
-    return <div>This is a React app?!</div>;
+    return (
+      <div className="app">
+        <h1>Todo List</h1>
+        <TodoInput />
+        <TodoList />
+      </div>
+    );
   }
 }
 
